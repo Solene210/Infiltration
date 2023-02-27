@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour
             Vector3 cameraForward = _cameraTransform.forward;
             cameraForward.y = 0;
             Quaternion lookRotation = Quaternion.LookRotation(cameraForward);
-            Quaternion rotation = Quaternion.RotateTowards(_rigidbody.rotation, lookRotation, _turnSpeed * Time.fixedDeltaTime);
-            _rigidbody.MoveRotation(rotation);
+            //Quaternion rotation = Quaternion.RotateTowards(_rigidbody.rotation, lookRotation, _turnSpeed * Time.fixedDeltaTime);
+            _rigidbody.MoveRotation(lookRotation);
         }
     }
 
