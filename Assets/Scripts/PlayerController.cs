@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _turnSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _sprintSpeed;
+    [SerializeField] private float _sneakingSpeed;
 
     [Header("Floor detection")]
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private Vector3 _boxDimension;
     [SerializeField] private Transform _groundChecker;
+    [SerializeField] private float _yFloorOfset;
 
     #endregion
 
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        _floorDetector = GetComponentInChildren<FloorDetector>();
     }
 
     void Start()
@@ -40,25 +43,32 @@ public class PlayerController : MonoBehaviour
         Jump();
         Collider[] groundColliders = Physics.OverlapBox(_groundChecker.position, _boxDimension, Quaternion.identity, _groundMask);
         _isGrounded = groundColliders.Length > 0;
-        if (_isGrounded)
-        {
-            Debug.Log("Je touche le sol");
-        }
     }
 
     private void FixedUpdate()
     {
-        if (_isJumping)
+
+        //_direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
+        if (_isGrounded)
         {
-            _direction.y = _jumpForce;
-            _isJumping = false;
+            StickToGround();
+          
+            if (_isJumping)
+            {
+                _isGrounded = false;
+                _direction.y = _jumpForce;
+                _isJumping = false;
+            }
         }
         else
         {
+            //Ici soit on saute soit on tombe
             _direction.y = _rigidbody.velocity.y;
         }
+
         _rigidbody.velocity = _direction;
         RotateTowardsCamera();
+
     }
 
     private void OnDrawGizmos()
@@ -74,12 +84,17 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         //Déplacement du joueur par rapport à la vue de la caméra
-                            //Déplacement avant - arrière                           //Déplacement gauche - droite
+        //Déplacement avant - arrière                           //Déplacement gauche - droite
         _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
         _direction *= _speed;
+        _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
         if (Input.GetButton("Sprint"))
         {
             Sprint();
+        }
+        if (Input.GetButton("Fire1"))
+        {
+            Sneaking();
         }
     }
 
@@ -87,6 +102,22 @@ public class PlayerController : MonoBehaviour
     {
         _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
         _direction *= _sprintSpeed;
+    }
+
+    private void Sneaking()
+    {
+        _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
+        _direction *= _sneakingSpeed;
+    }
+
+    private void StickToGround()
+    {
+        Vector3 averagePosition = _floorDetector.AverageHeight();
+        Debug.Log(averagePosition.y + _yFloorOfset);
+        Vector3 newPosition = new Vector3(_rigidbody.position.x, averagePosition.y + _yFloorOfset, _rigidbody.position.z);
+        //transform.position = newPosition;
+        _rigidbody.MovePosition(newPosition);
+
     }
 
     private void RotateTowardsCamera()
@@ -103,7 +134,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if(Input.GetButton("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             _isJumping = true;
         }
@@ -116,8 +147,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 _direction = new Vector3();
     private Rigidbody _rigidbody;
     private Transform _cameraTransform;
-    private bool _isJumping = false;
-    private bool _isGrounded = true;
+    private FloorDetector _floorDetector;
+    public bool _isJumping = false;
+    public bool _isGrounded = true;
 
     #endregion
 }
