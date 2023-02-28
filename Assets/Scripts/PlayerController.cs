@@ -8,9 +8,16 @@ public class PlayerController : MonoBehaviour
 {
     #region expose
 
+    [Header("Movement parameter")]
     [SerializeField] private float _speed;
     [SerializeField] private float _turnSpeed;
     [SerializeField] private float _jumpForce;
+    [SerializeField] private float _sprintSpeed;
+
+    [Header("Floor detection")]
+    [SerializeField] private LayerMask _groundMask;
+    [SerializeField] private Vector3 _boxDimension;
+    [SerializeField] private Transform _groundChecker;
 
     #endregion
 
@@ -31,6 +38,12 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Jump();
+        Collider[] groundColliders = Physics.OverlapBox(_groundChecker.position, _boxDimension, Quaternion.identity, _groundMask);
+        _isGrounded = groundColliders.Length > 0;
+        if (_isGrounded)
+        {
+            Debug.Log("Je touche le sol");
+        }
     }
 
     private void FixedUpdate()
@@ -47,6 +60,13 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity = _direction;
         RotateTowardsCamera();
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(_groundChecker.position, _boxDimension * 2f);
+    }
+
     #endregion
 
     #region Methods
@@ -57,6 +77,16 @@ public class PlayerController : MonoBehaviour
                             //Déplacement avant - arrière                           //Déplacement gauche - droite
         _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
         _direction *= _speed;
+        if (Input.GetButton("Sprint"))
+        {
+            Sprint();
+        }
+    }
+
+    private void Sprint()
+    {
+        _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
+        _direction *= _sprintSpeed;
     }
 
     private void RotateTowardsCamera()
@@ -73,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButton("Jump"))
         {
             _isJumping = true;
         }
@@ -87,5 +117,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private Transform _cameraTransform;
     private bool _isJumping = false;
+    private bool _isGrounded = true;
+
     #endregion
 }
