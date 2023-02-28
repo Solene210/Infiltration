@@ -14,12 +14,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _sprintSpeed;
     [SerializeField] private float _sneakingSpeed;
+    [SerializeField] private float _maxSlopeAngle;
 
     [Header("Floor detection")]
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private Vector3 _boxDimension;
     [SerializeField] private Transform _groundChecker;
     [SerializeField] private float _yFloorOfset;
+    [SerializeField] private float _playerHeight;
 
     #endregion
 
@@ -47,8 +49,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        //_direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
         if (_isGrounded)
         {
             StickToGround();
@@ -65,10 +65,8 @@ public class PlayerController : MonoBehaviour
             //Ici soit on saute soit on tombe
             _direction.y = _rigidbody.velocity.y;
         }
-
         _rigidbody.velocity = _direction;
         RotateTowardsCamera();
-
     }
 
     private void OnDrawGizmos()
@@ -96,6 +94,10 @@ public class PlayerController : MonoBehaviour
         {
             Sneaking();
         }
+        //if(OnSlope())
+        //{
+        //    _rigidbody.AddForce(GetSlopeMoveDirection() * _speed * 20, ForceMode.Force);
+        //}
     }
 
     private void Sprint()
@@ -113,7 +115,6 @@ public class PlayerController : MonoBehaviour
     private void StickToGround()
     {
         Vector3 averagePosition = _floorDetector.AverageHeight();
-        Debug.Log(averagePosition.y + _yFloorOfset);
         Vector3 newPosition = new Vector3(_rigidbody.position.x, averagePosition.y + _yFloorOfset, _rigidbody.position.z);
         //transform.position = newPosition;
         _rigidbody.MovePosition(newPosition);
@@ -140,6 +141,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //private bool OnSlope()
+    //{
+    //    if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, _playerHeight * 0.5f + 0.3f))
+    //    {
+    //        float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+    //        return angle < _maxSlopeAngle && angle != 0;
+    //    }
+    //    return false;
+    //}
+
+    //private Vector3 GetSlopeMoveDirection()
+    //{
+    //    return Vector3.ProjectOnPlane(_direction, slopeHit.normal).normalized;
+    //}
+
     #endregion
 
     #region private & protected
@@ -150,6 +166,7 @@ public class PlayerController : MonoBehaviour
     private FloorDetector _floorDetector;
     public bool _isJumping = false;
     public bool _isGrounded = true;
+    private RaycastHit slopeHit;
 
     #endregion
 }
