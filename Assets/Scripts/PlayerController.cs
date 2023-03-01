@@ -14,6 +14,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _sprintSpeed;
     [SerializeField] private float _sneakingSpeed;
+
+    [Header("Crouching")]
+    [SerializeField] private float _crouchSpeed;
+    [SerializeField] private float _crouchScaleY;
+    
+    [Header("Slope handling")]
     [SerializeField] private float _maxSlopeAngle;
 
     [Header("Floor detection")]
@@ -21,7 +27,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 _boxDimension;
     [SerializeField] private Transform _groundChecker;
     [SerializeField] private float _yFloorOfset;
-    [SerializeField] private float _playerHeight;
 
     #endregion
 
@@ -37,6 +42,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _cameraTransform = Camera.main.transform;
+        _startYscale = transform.localScale.y;
     }
 
     void Update()
@@ -94,22 +100,32 @@ public class PlayerController : MonoBehaviour
         {
             Sneaking();
         }
-        //if(OnSlope())
-        //{
-        //    _rigidbody.AddForce(GetSlopeMoveDirection() * _speed * 20, ForceMode.Force);
-        //}
+        if (Input.GetButton("Fire2"))
+        {
+            Crouching();
+        }
+        if (Input.GetButtonUp("Fire2"))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, _startYscale, transform.localScale.z);
+        }
+        if (OnSlope())
+        {
+            _rigidbody.AddForce(GetSlopeMoveDirection() * _speed * 20f, ForceMode.Force);
+        }
     }
 
     private void Sprint()
     {
         _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
         _direction *= _sprintSpeed;
+        _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
     }
 
     private void Sneaking()
     {
         _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
         _direction *= _sneakingSpeed;
+        _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
     }
 
     private void StickToGround()
@@ -141,21 +157,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //private bool OnSlope()
-    //{
-    //    if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, _playerHeight * 0.5f + 0.3f))
-    //    {
-    //        float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-    //        return angle < _maxSlopeAngle && angle != 0;
-    //    }
-    //    return false;
-    //}
+    private void Crouching()
+    {
+        transform.localScale = new Vector3(transform.localScale.x, _crouchScaleY, transform.localScale.z);
+        //_rigidbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
+        _direction *= _crouchSpeed;
+        _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
+    }
 
-    //private Vector3 GetSlopeMoveDirection()
-    //{
-    //    return Vector3.ProjectOnPlane(_direction, slopeHit.normal).normalized;
-    //}
+    private bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out _slopeHit))
+        {
+            float angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
+            return angle < _maxSlopeAngle && angle != 0;
+        }
+        return false;
+    }
 
+    private Vector3 GetSlopeMoveDirection()
+    {
+        return Vector3.ProjectOnPlane(_direction, _slopeHit.normal).normalized;
+    }
     #endregion
 
     #region private & protected
@@ -166,7 +190,8 @@ public class PlayerController : MonoBehaviour
     private FloorDetector _floorDetector;
     public bool _isJumping = false;
     public bool _isGrounded = true;
-    private RaycastHit slopeHit;
+    private float _startYscale;
+    private RaycastHit _slopeHit;
 
     #endregion
 }
