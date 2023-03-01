@@ -14,10 +14,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _sprintSpeed;
     [SerializeField] private float _sneakingSpeed;
-
-    [Header("Crouching")]
-    [SerializeField] private float _crouchSpeed;
-    [SerializeField] private float _crouchScaleY;
     
     [Header("Slope handling")]
     [SerializeField] private float _maxSlopeAngle;
@@ -71,6 +67,14 @@ public class PlayerController : MonoBehaviour
             //Ici soit on saute soit on tombe
             _direction.y = _rigidbody.velocity.y;
         }
+        //Légerement en face du joueur il y a une pente immontable
+        if (SlopeAngle() > _maxSlopeAngle)
+        {
+            Debug.Log("Ne doit pas avancer");   // Mais quand même déjà un peu sur la pente
+            Vector3 localDirection = transform.InverseTransformDirection(_direction);   //Passe du gloabal au local
+            if(localDirection.z > 0) localDirection.z = 0;   //Pas le droit d'avancer
+            _direction = transform.TransformDirection(localDirection);  //Repasse la direction en global
+        }
         _rigidbody.velocity = _direction;
         RotateTowardsCamera();
     }
@@ -88,7 +92,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         //Déplacement du joueur par rapport à la vue de la caméra
-        //Déplacement avant - arrière                           //Déplacement gauche - droite
+                            //Déplacement avant - arrière                           //Déplacement gauche - droite
         _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
         _direction *= _speed;
         _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
@@ -99,18 +103,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             Sneaking();
-        }
-        if (Input.GetButton("Fire2"))
-        {
-            Crouching();
-        }
-        if (Input.GetButtonUp("Fire2"))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, _startYscale, transform.localScale.z);
-        }
-        if (OnSlope())
-        {
-            _rigidbody.AddForce(GetSlopeMoveDirection() * _speed * 20f, ForceMode.Force);
         }
     }
 
@@ -132,9 +124,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 averagePosition = _floorDetector.AverageHeight();
         Vector3 newPosition = new Vector3(_rigidbody.position.x, averagePosition.y + _yFloorOfset, _rigidbody.position.z);
-        //transform.position = newPosition;
         _rigidbody.MovePosition(newPosition);
-
     }
 
     private void RotateTowardsCamera()
@@ -157,29 +147,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Crouching()
+    private float SlopeAngle()
     {
-        transform.localScale = new Vector3(transform.localScale.x, _crouchScaleY, transform.localScale.z);
-        //_rigidbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-        _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
-        _direction *= _crouchSpeed;
-        _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
-    }
-
-    private bool OnSlope()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out _slopeHit))
+        Vector3 startingpoint = new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.5f);
+            Debug.DrawRay(startingpoint, Vector3.down);
+        if (Physics.Raycast(startingpoint, Vector3.down, out _slopeHit))
         {
             float angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
-            return angle < _maxSlopeAngle && angle != 0;
+            return angle;
         }
-        return false;
+        return 370;
     }
 
-    private Vector3 GetSlopeMoveDirection()
-    {
-        return Vector3.ProjectOnPlane(_direction, _slopeHit.normal).normalized;
-    }
+    //private Vector3 GetSlopeMoveDirection()
+    //{
+    //    return Vector3.ProjectOnPlane(_direction, _slopeHit.normal).normalized;
+    //}
     #endregion
 
     #region private & protected
