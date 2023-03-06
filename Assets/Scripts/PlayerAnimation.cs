@@ -17,7 +17,6 @@ public class PlayerAnimation : MonoBehaviour
     void Update()
     {
         _currentSpeed = _rb.velocity.magnitude;
-        //Vector3 localDirection = transform.InverseTransformDirection(_controller.Direction);   //Passe du gloabal au local
         AnimationToPlay();
     }
 
