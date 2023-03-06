@@ -92,9 +92,9 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         //Déplacement du joueur par rapport à la vue de la caméra
-                            //Déplacement avant - arrière                           //Déplacement gauche - droite
-        _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
-        _direction *= _speed;
+        //Déplacement avant - arrière                           //Déplacement gauche - droite
+        Direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
+        Direction *= _speed;
         _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
         if (Input.GetButton("Sprint"))
         {
@@ -108,15 +108,15 @@ public class PlayerController : MonoBehaviour
 
     private void Sprint()
     {
-        _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
-        _direction *= _sprintSpeed;
+        Direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
+        Direction *= _sprintSpeed;
         _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
     }
 
     private void Sneaking()
     {
-        _direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
-        _direction *= _sneakingSpeed;
+        Direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
+        Direction *= _sneakingSpeed;
         _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
     }
 
@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
 
     private void RotateTowardsCamera()
     {
-        if (_direction.magnitude > 0.1f)
+        if (Direction.magnitude > 0.1f)
         {
             Vector3 cameraForward = _cameraTransform.forward;
             cameraForward.y = 0;
@@ -159,11 +159,11 @@ public class PlayerController : MonoBehaviour
         return 370;
     }
 
-    //private Vector3 GetSlopeMoveDirection()
-    //{
-    //    return Vector3.ProjectOnPlane(_direction, _slopeHit.normal).normalized;
-    //}
     #endregion
+
+    public bool IsJumping { get => _isJumping; set => _isJumping = value; }
+    public bool IsGrounded { get => _isGrounded; set => _isGrounded = value; }
+    public Vector3 Direction { get => _direction; set => _direction = value; }
 
     #region private & protected
 
