@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region expose
-
     [Header("Movement parameter")]
     [SerializeField] private float _speed;
     [SerializeField] private float _turnSpeed;
@@ -23,11 +22,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 _boxDimension;
     [SerializeField] private Transform _groundChecker;
     [SerializeField] private float _yFloorOfset;
-
     #endregion
 
     #region Unity Life
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -38,7 +35,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _cameraTransform = Camera.main.transform;
-        _startYscale = transform.localScale.y;
     }
 
     void Update()
@@ -54,7 +50,6 @@ public class PlayerController : MonoBehaviour
         if (_isGrounded)
         {
             StickToGround();
-          
             if (_isJumping)
             {
                 _isGrounded = false;
@@ -84,11 +79,9 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(_groundChecker.position, _boxDimension * 2f);
     }
-
     #endregion
 
     #region Methods
-
     private void Move()
     {
         //Déplacement du joueur par rapport à la vue de la caméra
@@ -113,7 +106,7 @@ public class PlayerController : MonoBehaviour
         _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
     }
 
-    private void Sneaking()
+    public void Sneaking()
     {
         Direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
         Direction *= _sneakingSpeed;
@@ -158,7 +151,6 @@ public class PlayerController : MonoBehaviour
         }
         return 370;
     }
-
     #endregion
 
     public bool IsJumping { get => _isJumping; set => _isJumping = value; }
@@ -166,15 +158,12 @@ public class PlayerController : MonoBehaviour
     public Vector3 Direction { get => _direction; set => _direction = value; }
 
     #region private & protected
-
     private Vector3 _direction = new Vector3();
     private Rigidbody _rigidbody;
     private Transform _cameraTransform;
     private FloorDetector _floorDetector;
     public bool _isJumping = false;
     public bool _isGrounded = true;
-    private float _startYscale;
     private RaycastHit _slopeHit;
-
     #endregion
 }

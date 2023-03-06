@@ -32,6 +32,7 @@ public class PlayerAnimation : MonoBehaviour
         {
             //_animator.SetBool("isJumping", false);
             _animator.SetBool("isGrounded", true);
+            _isFalling = false;
         }
         if (_currentSpeed > 0.3f)
         {
@@ -39,6 +40,11 @@ public class PlayerAnimation : MonoBehaviour
             _animator.SetFloat("moveSpeed", _currentSpeed);
             _animator.SetFloat("speedX", localDirection.x);
             _animator.SetFloat("speedY", localDirection.z);
+            _animator.SetBool("isSneaking", false);
+        }
+        if (_controller.IsGrounded == false)
+        {
+            _isFalling = true;
         }
         if (_isFalling == true)
         {
@@ -50,5 +56,4 @@ public class PlayerAnimation : MonoBehaviour
     private float _currentSpeed;
     private Rigidbody _rb;
     private bool _isFalling;
-
 }
