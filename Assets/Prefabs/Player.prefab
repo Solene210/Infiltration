@@ -142,7 +142,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: 52f4bb182a584e44ebcf99139c1ce58a, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.29
   m_Height: 1.2
   m_Direction: 1
   m_Center: {x: 0, y: 0.1, z: 0}
@@ -247,7 +247,7 @@ MonoBehaviour:
   _turnSpeed: 90
   _jumpForce: 6
   _sprintSpeed: 15
-  _sneakingSpeed: 5
+  _sneakingSpeed: 2
   _maxSlopeAngle: 40
   _groundMask:
     serializedVersion: 2
@@ -271,6 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 8365970625462220779}
   _controller: {fileID: 6934259679102794361}
+  _distanceToGround: 0
 --- !u!1 &6934259679409367437
 GameObject:
   m_ObjectHideFlags: 0
