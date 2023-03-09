@@ -6,6 +6,7 @@ public class CameraBehaviour : MonoBehaviour
 {
     [SerializeField] private Transform _rightLimit;
     [SerializeField] private Transform _leftLimit;
+    [SerializeField] private LayerMask _rayLayer;
     [SerializeField] private float _rotateSpeed;
     void Start()
     {
@@ -30,16 +31,24 @@ public class CameraBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Bandit"))
+        if(other.CompareTag("Player"))
         {
-            Debug.Log("J'ai vu le player");
-            _playerTransform = other.transform;
+            Vector3 rayDirection = other.transform.position - transform.position;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity, _rayLayer))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    Debug.Log("Je t'observe");
+                    _playerTransform = other.transform;
+                }
+            }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Bandit"))
+        if (other.CompareTag("Player"))
         {
             _resetTimer = Time.timeSinceLevelLoad + 2;
         }
@@ -67,6 +76,6 @@ public class CameraBehaviour : MonoBehaviour
 
     private bool _rightToLeft = true;
     private Transform _target;
-    public Transform _playerTransform;
+    private Transform _playerTransform;
     private float _resetTimer;
 }

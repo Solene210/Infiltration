@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
+        Sneaking();
         Jump();
         Collider[] groundColliders = Physics.OverlapBox(_groundChecker.position, _boxDimension, Quaternion.identity, _groundMask);
         _isGrounded = groundColliders.Length > 0;
@@ -93,10 +94,6 @@ public class PlayerController : MonoBehaviour
         {
             Sprint();
         }
-        if (Input.GetButton("Fire1"))
-        {
-            Sneaking();
-        }
     }
 
     private void Sprint()
@@ -106,11 +103,19 @@ public class PlayerController : MonoBehaviour
         _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
     }
 
-    public void Sneaking()
+    private void Sneaking()
     {
-        Direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
-        Direction *= _sneakingSpeed;
-        _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
+        if (Input.GetButton("Fire1"))
+        {
+            Direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
+            Direction *= _sneakingSpeed;
+            _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
+            IsSneaking = true;
+        }
+        else
+        {
+            IsSneaking = false;
+        }
     }
 
     private void StickToGround()
@@ -155,6 +160,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsJumping { get => _isJumping; set => _isJumping = value; }
     public bool IsGrounded { get => _isGrounded; set => _isGrounded = value; }
+    public bool IsSneaking { get => _isSneaking; set => _isSneaking = value; }
     public Vector3 Direction { get => _direction; set => _direction = value; }
 
     #region private & protected
@@ -164,7 +170,7 @@ public class PlayerController : MonoBehaviour
     private FloorDetector _floorDetector;
     public bool _isJumping = false;
     public bool _isGrounded = true;
-    public bool _isIdling;
+    public bool _isSneaking;
     private RaycastHit _slopeHit;
     #endregion
 }

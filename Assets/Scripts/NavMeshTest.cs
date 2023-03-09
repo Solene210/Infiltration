@@ -5,8 +5,11 @@ using UnityEngine.AI;
 
 public class NavMeshTest : MonoBehaviour
 {
+    #region Expose
     [SerializeField] private Transform _target;
+    #endregion
 
+    #region Unity Life Cycle
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -31,8 +34,19 @@ public class NavMeshTest : MonoBehaviour
         if (_target != null)
         {
             _agent.SetDestination(_target.position);
+            if (_agent.isStopped && _agent.remainingDistance > 1)
+            {
+                Debug.Log("je ne peux pas atteindre la cible");
+            }
         }
     }
+    #endregion
 
+    #region methods
+
+    #endregion
+
+    #region Private & Protected
     private NavMeshAgent _agent;
+    #endregion
 }

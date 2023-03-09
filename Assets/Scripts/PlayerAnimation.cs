@@ -21,6 +21,12 @@ public class PlayerAnimation : MonoBehaviour
     void Update()
     {
         _currentSpeed = _rb.velocity.magnitude;
+        if (_currentSpeed < 0.5f)
+        {
+            _currentSpeed = 0;
+            _localDirection.x = 0;
+            _localDirection.z = 0;
+        }
         AnimationToPlay();
     }
 
@@ -47,37 +53,16 @@ public class PlayerAnimation : MonoBehaviour
 
     private void AnimationToPlay()
     {
-        if (_controller.IsJumping == true)
-        {
-            _animator.SetBool("isJumping", true);
-            //_animator.SetBool("isGrounded", false);
-        }
-        if (_controller.IsGrounded == true)
-        {
-            //_animator.SetBool("isJumping", false);
-            _animator.SetBool("isGrounded", true);
-            _isFalling = false;
-        }
-        if (_currentSpeed > 0.3f)
-        {
-            Vector3 localDirection = transform.InverseTransformDirection(_controller.Direction);   //Passe du gloabal au local
-            _animator.SetFloat("moveSpeed", _currentSpeed);
-            _animator.SetFloat("speedX", localDirection.x);
-            _animator.SetFloat("speedY", localDirection.z);
-            _animator.SetBool("isSneaking", false);
-        }
-        if (_controller.IsGrounded == false)
-        {
-            _isFalling = true;
-        }
-        if (_isFalling == true)
-        {
-            _animator.SetBool("isJumping", false);
-            _animator.SetBool("isGrounded", false);
-        }
+        _localDirection = transform.InverseTransformDirection(_controller.Direction);   //Passe du gloabal au local
+        _animator.SetBool("isJumping", _controller.IsJumping);
+        _animator.SetBool("isGrounded", _controller.IsGrounded);
+        _animator.SetFloat("moveSpeed", _currentSpeed);
+        _animator.SetFloat("speedX", _localDirection.x);
+        _animator.SetFloat("speedY", _localDirection.z);
+        _animator.SetBool("isSneaking", _controller.IsSneaking);
     }
 
+    private Vector3 _localDirection;
     private float _currentSpeed;
     private Rigidbody _rb;
-    private bool _isFalling;
 }
