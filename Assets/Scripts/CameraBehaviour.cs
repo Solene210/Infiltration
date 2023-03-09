@@ -17,7 +17,6 @@ public class CameraBehaviour : MonoBehaviour
         if (_playerTransform != null)
         {
             transform.LookAt(_playerTransform.position);
-            Debug.Log(_playerTransform.name);
             if(_resetTimer < Time.timeSinceLevelLoad)
             {
                 _playerTransform = null;
@@ -31,7 +30,7 @@ public class CameraBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Bandit"))
+        if (other.gameObject.CompareTag("Bandit"))
         {
             Debug.Log("J'ai vu le player");
             _playerTransform = other.transform;
@@ -40,7 +39,7 @@ public class CameraBehaviour : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Bandit"))
+        if (other.gameObject.CompareTag("Bandit"))
         {
             _resetTimer = Time.timeSinceLevelLoad + 2;
         }
@@ -68,6 +67,6 @@ public class CameraBehaviour : MonoBehaviour
 
     private bool _rightToLeft = true;
     private Transform _target;
-    private Transform _playerTransform;
+    public Transform _playerTransform;
     private float _resetTimer;
 }

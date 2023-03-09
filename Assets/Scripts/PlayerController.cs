@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
     private FloorDetector _floorDetector;
     public bool _isJumping = false;
     public bool _isGrounded = true;
-    public bool _isIdling { get; private set; }
+    public bool _isIdling;
     private RaycastHit _slopeHit;
     #endregion
 }
