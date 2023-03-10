@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    [SerializeField]
-    private Animator _animator;
-    [SerializeField]
-    private PlayerController _controller;
-    [SerializeField]
-    [Range(0f, 1f)]
-    private float _distanceToGround;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private PlayerController _controller;
 
     void Start()
     {
@@ -23,33 +18,18 @@ public class PlayerAnimation : MonoBehaviour
         _currentSpeed = _rb.velocity.magnitude;
         if (_currentSpeed < 0.5f)
         {
+            IsIdle = true;
             _currentSpeed = 0;
             _localDirection.x = 0;
             _localDirection.z = 0;
         }
+        else
+        {
+            IsIdle = false;
+        }
         AnimationToPlay();
     }
-
-    //private void OnAnimatorIK(int layerIndex)
-    //{
-    //    if(_animator)
-    //    {
-    //        //left foot
-    //        _animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1);
-    //        _animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1);
-    //        RaycastHit hit;
-    //        Ray ray = new Ray(_animator.GetIKPosition(AvatarIKGoal.LeftFoot) + Vector3.up, Vector3.down);
-    //        if (Physics.Raycast(ray, out hit, _distanceToGround + 1))
-    //        {
-    //            if (hit.transform.tag == "Walkable")
-    //            {
-    //                Vector3 footposition = hit.point;
-    //                footposition.y += _distanceToGround;
-    //                _animator.SetIKPosition(AvatarIKGoal.LeftFoot,footposition);
-    //            }
-    //        }
-    //    }
-    //}
+    
 
     private void AnimationToPlay()
     {
@@ -62,7 +42,10 @@ public class PlayerAnimation : MonoBehaviour
         _animator.SetBool("isSneaking", _controller.IsSneaking);
     }
 
+    public bool IsIdle { get => _isIdle; set => _isIdle = value; }
+
     private Vector3 _localDirection;
-    private float _currentSpeed;
     private Rigidbody _rb;
+    private float _currentSpeed;
+    private bool _isIdle = true;
 }
