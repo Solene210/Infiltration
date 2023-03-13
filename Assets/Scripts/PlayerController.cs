@@ -13,10 +13,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _sprintSpeed;
     [SerializeField] private float _sneakingSpeed;
-    
     [Header("Slope handling")]
     [SerializeField] private float _maxSlopeAngle;
-
     [Header("Floor detection")]
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private Vector3 _boxDimension;
@@ -85,8 +83,6 @@ public class PlayerController : MonoBehaviour
     #region Methods
     private void Move()
     {
-        //Déplacement du joueur par rapport à la vue de la caméra
-        //Déplacement avant - arrière                           //Déplacement gauche - droite
         Direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
         Direction *= _speed;
         _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
@@ -100,7 +96,7 @@ public class PlayerController : MonoBehaviour
     {
         Direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
         Direction *= _sprintSpeed;
-        _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
+        _direction.y = 0;
     }
 
     private void Sneaking()
@@ -109,7 +105,7 @@ public class PlayerController : MonoBehaviour
         {
             Direction = _cameraTransform.forward * Input.GetAxis("Vertical") + _cameraTransform.right * Input.GetAxis("Horizontal");
             Direction *= _sneakingSpeed;
-            _direction.y = 0; //on veut pas bouger en altidute par rapport a la camera
+            _direction.y = 0;
             IsSneaking = true;
         }
         else

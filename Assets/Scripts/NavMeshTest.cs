@@ -42,10 +42,6 @@ public class NavMeshTest : MonoBehaviour
     }
     #endregion
 
-    #region methods
-
-    #endregion
-
     #region Private & Protected
     private NavMeshAgent _agent;
     #endregion

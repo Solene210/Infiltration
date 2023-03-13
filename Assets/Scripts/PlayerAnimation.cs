@@ -30,7 +30,6 @@ public class PlayerAnimation : MonoBehaviour
         AnimationToPlay();
     }
     
-
     private void AnimationToPlay()
     {
         _localDirection = transform.InverseTransformDirection(_controller.Direction);   //Passe du gloabal au local

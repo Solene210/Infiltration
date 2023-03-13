@@ -387,7 +387,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2255
+  m_VersionIndex: 2258
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -767,7 +767,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f894dd2580ce6843861d61b95525aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waypoints: []
+  _waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _startingID: 1
-  _patrolMode: 0
-  _colorGizmos: {r: 0.6838927, g: 0.8773585, b: 0.4006052, a: 1}
+  _patrolMode: 1
+  _colorGizmos: {r: 0.7169812, g: 0.17813534, b: 0.15151297, a: 1}

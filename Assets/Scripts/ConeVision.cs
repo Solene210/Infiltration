@@ -36,12 +36,4 @@ public class ConeVision : MonoBehaviour
         }
     }
     #endregion
-
-    #region methods
-
-    #endregion
-
-    #region Private & Protected
-
-    #endregion
 }
