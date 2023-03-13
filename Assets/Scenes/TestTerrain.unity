@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 2fec4d5b11f87f046918ac000a0b13ff, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.093045734, g: 0.11882689, b: 0.15370417, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -148,11 +148,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1070664687, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000016759296
+      value: 0.000000017021529
       objectReference: {fileID: 0}
     - target: {fileID: 1070664687, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000024766262
+      value: -0.0000000025153784
       objectReference: {fileID: 0}
     - target: {fileID: 1282380841, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalPosition.y
@@ -168,11 +168,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1359457437, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000016902847
+      value: 0.000000016903153
       objectReference: {fileID: 0}
     - target: {fileID: 1359457437, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000032159675
+      value: -0.0000000032160257
       objectReference: {fileID: 0}
     - target: {fileID: 1681057188, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.x
@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 1231272857}
   m_Layer: 6
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -400,14 +400,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1461224917}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.07504815, y: -0.14108062, z: 0.1821443, w: 0.97019976}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 11.363, y: -14.557, z: 19.81}
 --- !u!1 &1649409888
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +485,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649409888}
-  m_LocalRotation: {x: 0.18690898, y: 0.000000022360544, z: -0.000000004254359, w: 0.9823773}
+  m_LocalRotation: {x: 0.18690898, y: 0.000000022360775, z: -0.0000000042544035, w: 0.9823773}
   m_LocalPosition: {x: 521.1559, y: 5.5699997, z: 522.52686}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
