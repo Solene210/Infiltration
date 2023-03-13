@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bandit
   - Walkable
+  - Hidable
   layers:
   - Default
   - TransparentFX
