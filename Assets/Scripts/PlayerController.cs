@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
         //Légerement en face du joueur il y a une pente immontable
         if (SlopeAngle() > _maxSlopeAngle)
         {
-            Debug.Log("Ne doit pas avancer");   // Mais quand même déjà un peu sur la pente
             Vector3 localDirection = transform.InverseTransformDirection(_direction);   //Passe du gloabal au local
             if(localDirection.z > 0) localDirection.z = 0;   //Pas le droit d'avancer
             _direction = transform.TransformDirection(localDirection);  //Repasse la direction en global

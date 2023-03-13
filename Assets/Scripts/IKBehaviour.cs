@@ -37,7 +37,6 @@ public class IKBehaviour : MonoBehaviour
             {
                 Vector3 footpositionL = hitL.point;
                 Quaternion footRotationL = Quaternion.FromToRotation(Vector3.up, hitL.normal) * Quaternion.LookRotation(transform.forward);
-                Debug.Log(hitL.point);
                 footpositionL.y += _distanceToGround;
                 _animator.SetIKPosition(AvatarIKGoal.LeftFoot, footpositionL);
                 _animator.SetIKRotation(AvatarIKGoal.LeftFoot, footRotationL);
