@@ -8,3 +8,6 @@ Etapes pour récuperer le projet :
  - [Sci_fi_environnement](https://assetstore.unity.com/packages/3d/environments/sci-fi/sci-fi-construction-kit-modular-159280)
  - [3D_Chararcter_Robot](https://assetstore.unity.com/packages/3d/characters/robots/3d-character-sci-fi-robots-bundle-227142#content)
  - [Terrain Sample Asset PAck](https://assetstore.unity.com/packages/3d/environments/landscapes/terrain-sample-asset-pack-145808)
+ - [Unity Terrain - URP Demo Scene](https://assetstore.unity.com/packages/3d/environments/unity-terrain-urp-demo-scene-213197)
+
+/!\ Le projet doit être en URP
