@@ -21482,15 +21482,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1070664687, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.15207765
+      value: 0.15207766
       objectReference: {fileID: 0}
     - target: {fileID: 1070664687, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017006245
+      value: -0.000000017006247
       objectReference: {fileID: 0}
     - target: {fileID: 1070664687, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000026167055
+      value: 0.0000000026167064
       objectReference: {fileID: 0}
     - target: {fileID: 1279129664, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_FollowOffset.y
@@ -21522,11 +21522,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1359457437, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000018857776
+      value: 0.00000001885777
       objectReference: {fileID: 0}
     - target: {fileID: 1359457437, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000038024743
+      value: -0.000000003802473
       objectReference: {fileID: 0}
     - target: {fileID: 1571295730, guid: f803dd9973b40094da54e7b59034f672, type: 3}
       propertyPath: m_FollowOffset.y
@@ -31148,7 +31148,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-394746
+  m_Name: pb_Mesh-586490
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -32718,7 +32718,7 @@ Terrain:
   m_DrawTreesAndFoliage: 1
   m_StaticShadowCaster: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -38445,7 +38445,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-391094
+  m_Name: pb_Mesh-582838
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -44645,6 +44645,7 @@ GameObject:
   - component: {fileID: 1649409890}
   - component: {fileID: 1649409889}
   - component: {fileID: 1649409892}
+  - component: {fileID: 1649409893}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -44710,7 +44711,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649409888}
-  m_LocalRotation: {x: 0.19766131, y: -0.000000018857776, z: 0.000000003802474, w: 0.9802704}
+  m_LocalRotation: {x: 0.19766131, y: 0.000000018857772, z: -0.0000000038024734, w: 0.9802704}
   m_LocalPosition: {x: 501.99, y: -12.011196, z: 448.72565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -44753,6 +44754,39 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1649409893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649409888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1001 &1650394219
 PrefabInstance:
   m_ObjectHideFlags: 0
