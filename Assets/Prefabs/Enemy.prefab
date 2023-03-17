@@ -723,6 +723,7 @@ GameObject:
   - component: {fileID: 8514534521947526557}
   - component: {fileID: 1373612940519088673}
   - component: {fileID: 5932731102627957882}
+  - component: {fileID: 7900784514746280033}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -786,3 +787,16 @@ MonoBehaviour:
   _startingID: 1
   _patrolMode: 1
   _colorGizmos: {r: 0.7169812, g: 0.17813534, b: 0.15151297, a: 1}
+--- !u!114 &7900784514746280033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8048967335363578425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1259e0628f34564786eb2b864bd7637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
