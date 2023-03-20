@@ -6,24 +6,19 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region Expose
-    
+    [SerializeField]
+    private IntVariable _enemySee; 
+    [SerializeField]
+    private IntVariable _cameraSee;
     #endregion
 
     #region Unity Life Cycle
-    private void Awake()
-    {
-        
-    }
-
     void Start()
     {
-        
+        _cameraSee.m_value = 0;
+        _enemySee.m_value = 0;
     }
 
-    void Update()
-    {
-        
-    }
     #endregion
 
     #region methods

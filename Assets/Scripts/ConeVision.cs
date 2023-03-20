@@ -8,7 +8,9 @@ public class ConeVision : MonoBehaviour
 {
     #region Expose
     [SerializeField] private LayerMask _playerLayer;
-    [HideInInspector] public GameObject _target;
+    [HideInInspector] public GameObject _target; 
+    [SerializeField] private IntVariable _enemySee;
+    [SerializeField] private int _score;
     #endregion
 
     #region Unity Life Cycle
@@ -24,6 +26,7 @@ public class ConeVision : MonoBehaviour
                 {
                     Debug.Log("Halte! Je te vois, tu sais!");
                     _target = other.gameObject;
+                    _enemySee.m_value += _score;
                 }
             }
         }

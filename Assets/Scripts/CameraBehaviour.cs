@@ -8,6 +8,9 @@ public class CameraBehaviour : MonoBehaviour
     [SerializeField] private Transform _leftLimit;
     [SerializeField] private LayerMask _rayLayer;
     [SerializeField] private float _rotateSpeed;
+    [SerializeField] private IntVariable _cameraSee;
+    [SerializeField] private int _score;
+
     void Start()
     {
         _target = _rightLimit;
@@ -41,6 +44,7 @@ public class CameraBehaviour : MonoBehaviour
                 {
                     Debug.Log("Je t'observe");
                     _playerTransform = other.transform;
+                    _cameraSee.m_value += _score;
                 }
             }
         }
